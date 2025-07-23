@@ -113,6 +113,7 @@ else
 
 $skuProps = array();
 $price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
+$price['PRINT_RATIO_PRICE'] = $arResult['DISPLAY_PROPERTIES']['CUSTOM_PRICE']['VALUE']. " ₽"??$price['PRINT_RATIO_PRICE'];
 $measureRatio = $actualItem['ITEM_MEASURE_RATIOS'][$actualItem['ITEM_MEASURE_RATIO_SELECTED']]['RATIO'];
 $showDiscount = $price['PERCENT'] > 0;
 
