@@ -33,7 +33,8 @@ $APPLICATION->SetTitle("news");
 		"DETAIL_PAGER_TITLE" => "Страница",
 		"DETAIL_PROPERTY_CODE" => array(
 			0 => "TIME_TO_READ",
-			1 => "",
+			1 => "AJAX_CLICK",
+			2 => "",
 		),
 		"DETAIL_SET_CANONICAL_URL" => "Y",
 		"DISPLAY_AS_RATING" => "rating",
@@ -103,9 +104,10 @@ $APPLICATION->SetTitle("news");
 	),
 	false
 );?><?$APPLICATION->IncludeComponent(
-	"bitrix:iblock.element.add.form", 
-	".default", 
-	array(
+	"bitrix:iblock.element.add.form",
+	".default",
+	Array(
+		"COMPONENT_TEMPLATE" => ".default",
 		"CUSTOM_TITLE_DATE_ACTIVE_FROM" => "",
 		"CUSTOM_TITLE_DATE_ACTIVE_TO" => "",
 		"CUSTOM_TITLE_DETAIL_PICTURE" => "",
@@ -118,9 +120,7 @@ $APPLICATION->SetTitle("news");
 		"DEFAULT_INPUT_SIZE" => "30",
 		"DETAIL_TEXT_USE_HTML_EDITOR" => "Y",
 		"ELEMENT_ASSOC" => "CREATED_BY",
-		"GROUPS" => array(
-			0 => "1",
-		),
+		"GROUPS" => array(0=>"1",),
 		"IBLOCK_ID" => "1",
 		"IBLOCK_TYPE" => "content",
 		"LEVEL_LAST" => "N",
@@ -129,37 +129,40 @@ $APPLICATION->SetTitle("news");
 		"MAX_LEVELS" => "100000",
 		"MAX_USER_ENTRIES" => "100000",
 		"PREVIEW_TEXT_USE_HTML_EDITOR" => "Y",
-		"PROPERTY_CODES" => array(
-			0 => "2",
-			1 => "NAME",
-			2 => "TAGS",
-			3 => "DATE_ACTIVE_FROM",
-			4 => "DATE_ACTIVE_TO",
-			5 => "IBLOCK_SECTION",
-			6 => "PREVIEW_TEXT",
-			7 => "PREVIEW_PICTURE",
-			8 => "DETAIL_TEXT",
-			9 => "DETAIL_PICTURE",
-		),
-		"PROPERTY_CODES_REQUIRED" => array(
-			0 => "2",
-			1 => "NAME",
-			2 => "DATE_ACTIVE_FROM",
-			3 => "DATE_ACTIVE_TO",
-			4 => "IBLOCK_SECTION",
-			5 => "PREVIEW_TEXT",
-			6 => "PREVIEW_PICTURE",
-			7 => "DETAIL_TEXT",
-			8 => "DETAIL_PICTURE",
-		),
+		"PROPERTY_CODES" => array(0=>"2",1=>"NAME",2=>"TAGS",3=>"DATE_ACTIVE_FROM",4=>"DATE_ACTIVE_TO",5=>"IBLOCK_SECTION",6=>"PREVIEW_TEXT",7=>"PREVIEW_PICTURE",8=>"DETAIL_TEXT",9=>"DETAIL_PICTURE",),
+		"PROPERTY_CODES_REQUIRED" => array(0=>"2",1=>"NAME",2=>"DATE_ACTIVE_FROM",3=>"DATE_ACTIVE_TO",4=>"IBLOCK_SECTION",5=>"PREVIEW_TEXT",6=>"PREVIEW_PICTURE",7=>"DETAIL_TEXT",8=>"DETAIL_PICTURE",),
 		"RESIZE_IMAGES" => "N",
 		"SEF_MODE" => "N",
 		"STATUS" => "ANY",
 		"STATUS_NEW" => "N",
 		"USER_MESSAGE_ADD" => "",
 		"USER_MESSAGE_EDIT" => "",
-		"USE_CAPTCHA" => "N",
-		"COMPONENT_TEMPLATE" => ".default"
-	),
-	false
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+		"USE_CAPTCHA" => "N"
+	)
+);?>
+
+
+<div class="element-deleter" data-iblock-id="1" data-ajax-url="/ajax/delete_element.php">
+    <h3>Удаление элемента</h3>
+    
+    <select class="js-element-select">
+        <option value="">-- Выберите элемент --</option>
+        <?php
+        $elements = CIBlockElement::GetList(
+            ['NAME' => 'ASC'],
+            ['IBLOCK_ID' => 1, 'ACTIVE' => 'Y'],
+            false,
+            false,
+            ['ID', 'NAME']
+        );
+        while ($element = $elements->Fetch()) {
+            echo '<option value="'.$element['ID'].'">'.$element['NAME'].'</option>';
+        }
+        ?>
+    </select>
+    
+    <button class="js-delete-button" disabled>Удалить</button>
+    
+    <div class="js-result-message" style="margin-top: 10px; color: red;"></div>
+</div>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

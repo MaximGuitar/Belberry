@@ -2,9 +2,9 @@
 $APPLICATION->SetPageProperty("tags", "тегиии");
 $APPLICATION->SetTitle("Главная страница");
 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"flat", 
-	array(
+	"bitrix:news.list",
+	"flat",
+	Array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
 		"AJAX_MODE" => "Y",
@@ -25,10 +25,7 @@ $APPLICATION->SetTitle("Главная страница");
 		"DISPLAY_PICTURE" => "Y",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"FIELD_CODE" => array(0=>"",1=>"",),
 		"FILE_404" => "",
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
@@ -49,10 +46,7 @@ $APPLICATION->SetTitle("Главная страница");
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
 		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"PROPERTY_CODE" => array(0=>"",1=>"",),
 		"SEARCH_PAGE" => "/search/",
 		"SET_BROWSER_TITLE" => "N",
 		"SET_LAST_MODIFIED" => "N",
@@ -70,6 +64,39 @@ $APPLICATION->SetTitle("Главная страница");
 		"TEMPLATE_THEME" => "blue",
 		"USE_RATING" => "N",
 		"USE_SHARE" => "N"
+	)
+);?><?$APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	".default",
+	Array(
+		"AREA_FILE_RECURSIVE" => "Y",
+		"AREA_FILE_SHOW" => "file",
+		"AREA_FILE_SUFFIX" => "inc",
+		"COMPONENT_TEMPLATE" => ".default",
+		"EDIT_TEMPLATE" => "standard.php",
+		"PATH" => "/include/contacts.php"
+	)
+);?><?$APPLICATION->IncludeComponent(
+	"bitrix:form.result.new", 
+	".default", 
+	array(
+		"CACHE_TIME" => "3600",
+"AJAX_MODE" => "Y",
+		"CACHE_TYPE" => "A",
+		"CHAIN_ITEM_LINK" => "",
+		"CHAIN_ITEM_TEXT" => "",
+		"EDIT_URL" => "",
+		"IGNORE_CUSTOM_TEMPLATE" => "Y",
+		"LIST_URL" => "",
+		"SEF_MODE" => "N",
+		"SUCCESS_URL" => "",
+		"USE_EXTENDED_ERRORS" => "N",
+		"WEB_FORM_ID" => "1",
+		"COMPONENT_TEMPLATE" => ".default",
+		"VARIABLE_ALIASES" => array(
+			"WEB_FORM_ID" => "",
+			"RESULT_ID" => "",
+		)
 	),
 	false
 );?><? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
